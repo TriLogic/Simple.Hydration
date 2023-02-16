@@ -36,7 +36,7 @@ namespace Simple.Hydration.Test
 
         public static void HydrateSingle()
         {
-            Console.WriteLine("Hydrate Many:");
+            Console.WriteLine("Hydrate Single:");
 
             Dictionary<string, string> values = new Dictionary<string, string>
             {
@@ -58,19 +58,19 @@ namespace Simple.Hydration.Test
         {
             Console.WriteLine("Hydrate Many:");
 
-            DataTable agenda = new DataTable();
-            agenda.Columns.Add("MealName", typeof(string));
-            agenda.Columns.Add("MealTime", typeof(string));
+            DataTable meals = new DataTable();
+            meals.Columns.Add("MealName", typeof(string));
+            meals.Columns.Add("MealTime", typeof(string));
 
             string today = DateTime.Now.ToString("M/d/yyyy");
 
-            agenda.Rows.Add(new[] { "Breakfast", DateTime.Parse(today).AddHours(6).AddMinutes(30).ToString() } );
-            agenda.Rows.Add(new[] { "Lunch", DateTime.Parse(today).AddHours(12).ToString() });
-            agenda.Rows.Add(new[] { "Dinner", DateTime.Parse(today).AddHours(18).ToString() });
+            meals.Rows.Add(new[] { "Breakfast", DateTime.Parse(today).AddHours(6).AddMinutes(30).ToString() } );
+            meals.Rows.Add(new[] { "Lunch", DateTime.Parse(today).AddHours(12).ToString() });
+            meals.Rows.Add(new[] { "Dinner", DateTime.Parse(today).AddHours(18).ToString() });
 
             var hydrator = new Hydrator<MealTime>();
             Dictionary<string, int> OrdinalCache = new();
-            var list = hydrator.Hydrate<DataRow>(agenda.AsEnumerable(), (row, key) =>
+            var list = hydrator.Hydrate<DataRow>(meals.AsEnumerable(), (row, key) =>
             {
                 if (OrdinalCache.ContainsKey(key))
                     return row.ItemArray[OrdinalCache[key]].ToString();
@@ -87,7 +87,5 @@ namespace Simple.Hydration.Test
 
         }
     }
-
-    // public static System.Data.EnumerableRowCollection<System.Data.DataRow> AsEnumerable(this System.Data.DataTable source);
 
 }
