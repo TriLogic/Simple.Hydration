@@ -18,9 +18,16 @@ namespace Simple.Hydration
 
         public override string GetKey() => Key;
 
-        public override void Hydrate(object target, string value)
+        public override void Hydrate(object target, string? value)
         {
-            Info.SetValue(target, Converter.ConvertFromString(value));
+            if (value == null)
+            {
+                Info.SetValue(target, null);
+            }
+            else
+            {
+                Info.SetValue(target, Converter.ConvertFromString(value));
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Simple.Hydration
             Converter = TypeDescriptor.GetConverter(type);
         }
 
-        public abstract void Hydrate(object target, string value);
+        public abstract void Hydrate(object target, string? value);
 
         public abstract string GetKey();
     }
