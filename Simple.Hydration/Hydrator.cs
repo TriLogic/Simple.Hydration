@@ -11,7 +11,7 @@ namespace Simple.Hydration
         {
             IncludeHydrates();
         }
-        public Hydrator(IEnumerable<string>? IncludedKeys = null, IEnumerable<string>? ExcludedKeys = null)
+        public Hydrator(List<string>? IncludedKeys = null, List<string>? ExcludedKeys = null)
         {
             IncludeHydrates();
 
@@ -21,25 +21,25 @@ namespace Simple.Hydration
         #endregion
 
         #region List Tailoring
-        public void IncludeThese(IEnumerable<string>? SpecificKeys)
+        public void IncludeThese(List<string>? keys)
         {
-            if (SpecificKeys == null)
+            if (keys == null || keys.Count == 0)
                 return;
 
             var selected = Hydrators
-                .Where(h => SpecificKeys.FirstOrDefault(h.GetKey()) != null)
+                .Where(h => keys.Contains(h.GetKey()) == true)
                 .ToList();
 
             Hydrators = selected;
         }
 
-        public void ExcludeThese(IEnumerable<string>? SpecificKeys)
+        public void ExcludeThese(List<string>? keys)
         {
-            if (SpecificKeys == null)
+            if (keys == null || keys.Count == 0)
                 return;
 
             var selected = Hydrators
-                .Where(h => SpecificKeys.FirstOrDefault(h.GetKey()) == null)
+                .Where(h => keys.Contains(h.GetKey()) == false)
                 .ToList();
 
             Hydrators = selected;
@@ -92,15 +92,15 @@ namespace Simple.Hydration
             return target;
         }
 
-        public T HydrateWith(IEnumerable<string>? keys, Func<string, string?> lookup)
+        public T HydrateWith(List<string>? keys, Func<string, string?> lookup)
         {
             return HydrateWith(new(), keys, lookup);
         }
 
-        public T HydrateWith(T target, IEnumerable<string>? keys, Func<string, string?> lookup)
+        public T HydrateWith(T target, List<string>? keys, Func<string, string?> lookup)
         {
-            var selected = keys == null ? Hydrators : Hydrators
-                .Where(h => keys.FirstOrDefault(h.GetKey()) != null)
+            var selected = keys == null || keys.Count == 0 ? Hydrators : Hydrators
+                .Where(h => keys.Contains(h.GetKey()) == true)
                 .ToList();
 
             Hydrators.ForEach(h =>
@@ -111,15 +111,15 @@ namespace Simple.Hydration
             return target;
         }
 
-        public T HydrateWithout(IEnumerable<string>? keys, Func<string, string?> lookup)
+        public T HydrateWithout(List<string>? keys, Func<string, string?> lookup)
         {
             return HydrateWithout(new(), keys, lookup);
         }
 
-        public T HydrateWithout(T target, IEnumerable<string>? keys, Func<string, string?> lookup)
+        public T HydrateWithout(T target, List<string>? keys, Func<string, string?> lookup)
         {
-            var selected = keys == null ? Hydrators : Hydrators
-                .Where(h => keys.FirstOrDefault(h.GetKey()) == null)
+            var selected = keys == null || keys.Count == 0 ? Hydrators : Hydrators
+                .Where(h => keys.Contains(h.GetKey()) == false)
                 .ToList();
 
             Hydrators.ForEach(h =>
@@ -146,10 +146,10 @@ namespace Simple.Hydration
             return result;
         }
 
-        public List<T> HydrateWith<S>(IEnumerable<S> enumerable, IEnumerable<string> keys, Func<S, string, string?> lookup)
+        public List<T> HydrateWith<S>(IEnumerable<S> enumerable, List<string> keys, Func<S, string, string?> lookup)
         {
-            var selected = keys == null ? Hydrators : Hydrators
-                .Where(h => keys.FirstOrDefault(h.GetKey()) != null)
+            var selected = keys == null || keys.Count == 0 ? Hydrators : Hydrators
+                .Where(h => keys.Contains(h.GetKey()) == true)
                 .ToList();
 
             List<T> result = new();
@@ -167,10 +167,10 @@ namespace Simple.Hydration
             return result;
         }
 
-        public List<T> HydrateWithout<S>(IEnumerable<S> enumerable, IEnumerable<string>? keys, Func<S, string, string?> lookup)
+        public List<T> HydrateWithout<S>(IEnumerable<S> enumerable, List<string>? keys, Func<S, string, string?> lookup)
         {
-            var selected = keys == null ? Hydrators : Hydrators
-                .Where(h => keys.FirstOrDefault(h.GetKey()) == null)
+            var selected = keys == null || keys.Count == 0 ? Hydrators : Hydrators
+                .Where(h => keys.Contains(h.GetKey()) == false)
                 .ToList();
 
             List<T> result = new();
@@ -209,15 +209,15 @@ namespace Simple.Hydration
             return target;
         }
 
-        public T HydrateWith(IEnumerable<string>? keys, Func<string, (string? Result, bool Skip)> lookup)
+        public T HydrateWith(List<string>? keys, Func<string, (string? Result, bool Skip)> lookup)
         {
             return HydrateWith(new(), keys, lookup);
         }
 
-        public T HydrateWith(T target, IEnumerable<string>? keys, Func<string, (string? Result, bool Skip)> lookup)
+        public T HydrateWith(T target, List<string>? keys, Func<string, (string? Result, bool Skip)> lookup)
         {
-            var selected = keys == null ? Hydrators : Hydrators
-                .Where(h => keys.FirstOrDefault(h.GetKey()) != null)
+            var selected = keys == null || keys.Count == 0 ? Hydrators : Hydrators
+                .Where(h => keys.Contains(h.GetKey()) == false)
                 .ToList();
 
             selected.ForEach(h =>
@@ -232,15 +232,15 @@ namespace Simple.Hydration
             return target;
         }
 
-        public T HydrateWithout(IEnumerable<string>? keys, Func<string, (string? Result, bool Skip)> lookup)
+        public T HydrateWithout(List<string>? keys, Func<string, (string? Result, bool Skip)> lookup)
         {
             return HydrateWithout(new(), keys, lookup);
         }
 
-        public T HydrateWithout(T target, IEnumerable<string>? keys, Func<string, (string? Result, bool Skip)> lookup)
+        public T HydrateWithout(T target, List<string>? keys, Func<string, (string? Result, bool Skip)> lookup)
         {
-            var selected = keys == null ? Hydrators : Hydrators
-                .Where(h => keys.FirstOrDefault(h.GetKey()) == null)
+            var selected = keys == null || keys.Count == 0 ? Hydrators : Hydrators
+                .Where(h => keys.Contains(h.GetKey()) == false)
                 .ToList();
 
             selected.ForEach(h =>
@@ -277,10 +277,10 @@ namespace Simple.Hydration
             return result;
         }
 
-        public List<T> HydrateWith<S>(IEnumerable<S> enumerable, IEnumerable<string>? keys, Func<S, string, (string? Result, bool Skip)> lookup)
+        public List<T> HydrateWith<S>(IEnumerable<S> enumerable, List<string>? keys, Func<S, string, (string? Result, bool Skip)> lookup)
         {
-            var selected = keys == null ? Hydrators : Hydrators
-                .Where(h => keys.FirstOrDefault(h.GetKey()) == null)
+            var selected = keys == null || keys.Count == 0 ? Hydrators : Hydrators
+                .Where(h => keys.Contains(h.GetKey()) == true)
                 .ToList();
 
             List<T> result = new();
@@ -303,10 +303,10 @@ namespace Simple.Hydration
             return result;
         }
 
-        public List<T> HydrateWithout<S>(IEnumerable<S> enumerable, IEnumerable<string>? keys, Func<S, string, (string? Result, bool Skip)> lookup)
+        public List<T> HydrateWithout<S>(IEnumerable<S> enumerable, List<string>? keys, Func<S, string, (string? Result, bool Skip)> lookup)
         {
-            var selected = keys == null ? Hydrators : Hydrators
-                .Where(h => keys.FirstOrDefault(h.GetKey()) == null)
+            var selected = keys == null || keys.Count == 0 ? Hydrators : Hydrators
+                .Where(h => keys.Contains(h.GetKey()) == false)
                 .ToList();
 
             List<T> result = new();

@@ -31,6 +31,10 @@ namespace Simple.Hydration.Test
 
             HydrateMany();
 
+            Console.WriteLine();
+
+            HydrateManyNoLunch();
+
             Console.ReadKey();
         }
 
@@ -86,6 +90,42 @@ namespace Simple.Hydration.Test
             });
 
         }
+
+        public static void HydrateManyNoLunch()
+        {
+            Console.WriteLine("Hydrate Many (No Lunch):");
+
+            DataTable meals = new DataTable();
+            meals.Columns.Add("MealName", typeof(string));
+            meals.Columns.Add("MealTime", typeof(string));
+
+            string today = DateTime.Now.ToString("M/d/yyyy");
+
+            meals.Rows.Add(new[] { "Breakfast", DateTime.Parse(today).AddHours(6).AddMinutes(30).ToString() });
+            meals.Rows.Add(new[] { "Lunch", DateTime.Parse(today).AddHours(12).ToString() });
+            meals.Rows.Add(new[] { "Dinner", DateTime.Parse(today).AddHours(18).ToString() });
+
+            var hydrator = new Hydrator<MealTime>();
+            Dictionary<string, int> OrdinalCache = new();
+            List<string> exclude = new() { "Lunch" };
+            var list = hydrator.HydrateWithout<DataRow>(meals.AsEnumerable(), exclude, (row, key) =>
+            {
+                if (OrdinalCache.ContainsKey(key))
+                    return row.ItemArray[OrdinalCache[key]].ToString();
+
+                var ordinal = row.Table.Columns[key].Ordinal;
+                OrdinalCache[key] = ordinal;
+                return row.ItemArray[ordinal].ToString();
+            });
+
+            list.ForEach(meal =>
+            {
+                Console.WriteLine($"Hydrated Meal: {meal.MealName}, Time: {meal.TimeOfDay}");
+            });
+
+        }
+
+
     }
 
 }

@@ -10,24 +10,24 @@ namespace Simple.Hydration
     {
         public T Hydrate(T target, Func<string, string?> lookup);
         public T Hydrate(Func<string, string?> lookup);
-        public T HydrateWith(T target, IEnumerable<string>? keys, Func<string, string?> lookup);
-        public T HydrateWith(IEnumerable<string>? keys, Func<string, string?> lookup);
-        public T HydrateWithout(T target, IEnumerable<string>? keys, Func<string, string?> lookup);
-        public T HydrateWithout(IEnumerable<string>? keys, Func<string, string?> lookup);
+        public T HydrateWith(T target, List<string>? keys, Func<string, string?> lookup);
+        public T HydrateWith(List<string>? keys, Func<string, string?> lookup);
+        public T HydrateWithout(T target, List<string>? keys, Func<string, string?> lookup);
+        public T HydrateWithout(List<string>? keys, Func<string, string?> lookup);
         public List<T> Hydrate<S>(IEnumerable<S> enumerable, Func<S, string, string?> lookup);
-        public List<T> HydrateWith<S>(IEnumerable<S> enumerable, IEnumerable<string>? keys, Func<S, string, string?> lookup);
-        public List<T> HydrateWithout<S>(IEnumerable<S> enumerable, IEnumerable<string>? keys, Func<S, string, string?> lookup);
+        public List<T> HydrateWith<S>(IEnumerable<S> enumerable, List<string>? keys, Func<S, string, string?> lookup);
+        public List<T> HydrateWithout<S>(IEnumerable<S> enumerable, List<string>? keys, Func<S, string, string?> lookup);
 
 
         public T Hydrate(T target, Func<string, (string? Result, bool Skip)> lookup);
         public T Hydrate(Func<string, (string? Result, bool Skip)> lookup);
-        public T HydrateWith(T target, IEnumerable<string>? keys, Func<string, (string? Result, bool Skip)> lookup);
-        public T HydrateWith(IEnumerable<string>? keys, Func<string, (string? Result, bool Skip)> lookup);
-        public T HydrateWithout(T target, IEnumerable<string>? keys, Func<string, (string? Result, bool Skip)> lookup);
-        public T HydrateWithout(IEnumerable<string>? keys, Func<string, (string? Result, bool Skip)> lookup);
+        public T HydrateWith(T target, List<string>? keys, Func<string, (string? Result, bool Skip)> lookup);
+        public T HydrateWith(List<string>? keys, Func<string, (string? Result, bool Skip)> lookup);
+        public T HydrateWithout(T target, List<string>? keys, Func<string, (string? Result, bool Skip)> lookup);
+        public T HydrateWithout(List<string>? keys, Func<string, (string? Result, bool Skip)> lookup);
         public List<T> Hydrate<S>(IEnumerable<S> enumerable, Func<S, string, (string? Result, bool Skip)> lookup);
-        public List<T> HydrateWith<S>(IEnumerable<S> enumerable, IEnumerable<string>? keys, Func<S, string, (string? Result, bool Skip)> lookup);
-        public List<T> HydrateWithout<S>(IEnumerable<S> enumerable, IEnumerable<string>? keys, Func<S, string, (string? Result, bool Skip)> lookup);
+        public List<T> HydrateWith<S>(IEnumerable<S> enumerable, List<string>? keys, Func<S, string, (string? Result, bool Skip)> lookup);
+        public List<T> HydrateWithout<S>(IEnumerable<S> enumerable, List<string>? keys, Func<S, string, (string? Result, bool Skip)> lookup);
 
     }
 }
