@@ -103,7 +103,7 @@ namespace Simple.Hydration
                 .Where(h => keys.Contains(h.GetKey()) == true)
                 .ToList();
 
-            Hydrators.ForEach(h =>
+            selected.ForEach(h =>
             {
                 h.Hydrate(target, lookup(h.GetKey()));
             });
@@ -122,7 +122,7 @@ namespace Simple.Hydration
                 .Where(h => keys.Contains(h.GetKey()) == false)
                 .ToList();
 
-            Hydrators.ForEach(h =>
+            selected.ForEach(h =>
             {
                 h.Hydrate(target, lookup(h.GetKey()));
             });

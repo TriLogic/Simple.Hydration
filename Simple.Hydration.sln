@@ -5,7 +5,9 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple.Hydration", "Simple.Hydration\Simple.Hydration.csproj", "{71A8F222-6E28-4473-8CDB-95B02BA6FE08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Hydration.Test", "Simple.Hydration.Console\Simple.Hydration.Test.csproj", "{B10E2302-FE90-4E0E-B5AD-DEA83BD8DA29}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Hydration.Example", "Simple.Hydration.Example\Simple.Hydration.Example.csproj", "{B10E2302-FE90-4E0E-B5AD-DEA83BD8DA29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Hydration.Tests", "Simple.Hydration.Tests\Simple.Hydration.Tests.csproj", "{8172D2FE-FFF3-46BB-8023-182128427278}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{B10E2302-FE90-4E0E-B5AD-DEA83BD8DA29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B10E2302-FE90-4E0E-B5AD-DEA83BD8DA29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B10E2302-FE90-4E0E-B5AD-DEA83BD8DA29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8172D2FE-FFF3-46BB-8023-182128427278}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8172D2FE-FFF3-46BB-8023-182128427278}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8172D2FE-FFF3-46BB-8023-182128427278}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8172D2FE-FFF3-46BB-8023-182128427278}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
