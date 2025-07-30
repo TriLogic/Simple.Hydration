@@ -208,7 +208,7 @@ namespace Simple.Hydration.Tests
             var hydrator = new Hydrator<MealWithGuests>();
             Dictionary<string, int> OrdinalCache = new();
 
-            var list = hydrator.Hydrate<DataRow>(Meals.AsEnumerable(), (row, key) =>
+            var list = hydrator.HydrateMany<DataRow>(Meals.AsEnumerable(), (row, key) =>
             {
                 if (OrdinalCache.ContainsKey(key))
                     return row.ItemArray[OrdinalCache[key]].ToString();
@@ -249,7 +249,7 @@ namespace Simple.Hydration.Tests
             var hydrator = new Hydrator<MealWithGuests>();
             Dictionary<string, int> OrdinalCache = new();
 
-            var list = hydrator.HydrateWith<DataRow>(Meals.AsEnumerable(), GuestsNotIncluded, (row, key) =>
+            var list = hydrator.HydrateManyWith<DataRow>(Meals.AsEnumerable(), GuestsNotIncluded, (row, key) =>
             {
                 if (OrdinalCache.ContainsKey(key))
                     return row.ItemArray[OrdinalCache[key]].ToString();
@@ -290,7 +290,7 @@ namespace Simple.Hydration.Tests
             var hydrator = new Hydrator<MealWithGuests>();
             Dictionary<string, int> OrdinalCache = new();
 
-            var list = hydrator.HydrateWithout<DataRow>(Meals.AsEnumerable(), GuestsExcluded, (row, key) =>
+            var list = hydrator.HydrateManyWithout<DataRow>(Meals.AsEnumerable(), GuestsExcluded, (row, key) =>
             {
                 if (OrdinalCache.ContainsKey(key))
                     return row.ItemArray[OrdinalCache[key]].ToString();

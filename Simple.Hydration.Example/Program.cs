@@ -144,7 +144,7 @@ namespace Simple.Hydration.Example
             var hydrator = new Hydrator<MealWithGuests>();
             Dictionary<string, int> OrdinalCache = new();
 
-            var list = hydrator.Hydrate<DataRow>(Meals.AsEnumerable(), (row, key) =>
+            var list = hydrator.HydrateMany<DataRow>(Meals.AsEnumerable(), (row, key) =>
             {
                 if (OrdinalCache.ContainsKey(key))
                     return row.ItemArray[OrdinalCache[key]].ToString();
@@ -165,7 +165,7 @@ namespace Simple.Hydration.Example
             var hydrator = new Hydrator<MealWithGuests>();
             Dictionary<string, int> OrdinalCache = new();
 
-            var list = hydrator.Hydrate<DataRow>(Meals.AsEnumerable(), (row, key) =>
+            var list = hydrator.HydrateMany<DataRow>(Meals.AsEnumerable(), (row, key) =>
             {
                 // don't populate the guests field
                 if (key == "Guests")
